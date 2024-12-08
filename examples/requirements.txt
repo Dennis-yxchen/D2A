@@ -1,0 +1,10 @@
+absl-py
+docstring-parser
+gdm-concordia
+immutabledict
+IPython
+matplotlib
+ml_collections
+numpy
+sentence-transformers
+termcolor
