@@ -9,3 +9,4 @@ Existing task-oriented AI agents often depend on explicit instructions or extern
 
 ## Desire-driven Autonomous Agent Framework
 
+[imgs/framework.png]
