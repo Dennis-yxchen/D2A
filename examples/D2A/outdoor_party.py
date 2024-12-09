@@ -1,10 +1,11 @@
+import experiment_setup_outdoor as setup
 import collections
 import concurrent.futures
 import datetime
 import random
 import matplotlib.pyplot as plt
 import sys
-ROOT = r"Your path to the folder contain concordia and examples"
+ROOT = setup.ROOT
 if ROOT not in sys.path:
   sys.path.insert(0, ROOT)
 from IPython import display
@@ -42,34 +43,32 @@ from Baseline_agent.Baseline_BabyAGI import build_BabyAGI_agent
 from concordia.typing.entity_component import EntityWithComponents
 from value_components.init_value_info_social import construct_all_profile_dict
 from value_components import value_comp
-episode_length = 3
-disable_language_model = True
-test_agents = ['ReAct', 'LLMob', 'value', 'BabyAGI']
-st_model = sentence_transformers.SentenceTransformer(
-    'sentence-transformers/all-mpnet-base-v2')
-embedder = lambda x: st_model.encode(x, show_progress_bar=False)
-NUM_PLAYERS = 3
+
+
+### get the setup from the experiment_setup_outdoor.py
+
+episode_length = setup.episode_length
+disable_language_model = setup.disable_language_model
+st_model = setup.st_model
+embedder = setup.embedder
+tested_agents = setup.tested_agents
+Use_Previous_profile = setup.Use_Previous_profile
+previous_profile = setup.previous_profile
+previous_profile_file = setup.previous_profile_file
+if Use_Previous_profile and previous_profile:
+  print('Use previous profile')
+else:
+  print('dont Use previous profile')
+
+subsub_folder = setup.subsub_folder
+model = setup.model
+wanted_desires = setup.wanted_desires
+hidden_desires = setup.hidden_desires
+model_name = setup.model_name
+
+## setting end here
 
 EXP_START_TIME = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-
-Use_Previous_profile = False
-if Use_Previous_profile:
-  previous_profile_file = os.path.join(r'examples\D2A\result_folder\outdoor_result\2024-12-08_23-12-34', '2024-12-08_23-12-43_ReAct.json')
-  try:
-    with open(previous_profile_file, 'r') as f:
-      previous_profile = json.load(f)
-  except:
-    raise ValueError('The previous profile file is not found.')
-else:
-  previous_profile = None
-
-current_file_path = os.path.dirname(os.path.abspath(__file__))
-result_folder_name = 'result_folder'
-current_folder_path = os.path.join(current_file_path, result_folder_name)
-if not os.path.exists(current_folder_path):
-  os.makedirs(current_folder_path)
-
-subsub_folder = os.path.join(current_folder_path, 'outdoor_result')
 if not os.path.exists(subsub_folder):
   os.makedirs(subsub_folder)
 
@@ -78,18 +77,7 @@ if not os.path.exists(stored_target_folder):
   os.makedirs(stored_target_folder)
 
 
-api_type = 'Type of API'
-# model_name='google/gemma-2-9b-it'
-model_name = 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo'
-api_key='Your_API_Key'
-device = 'cpu'
-model = utils.language_model_setup(
-    api_type=api_type,
-    model_name=model_name,
-    api_key=api_key,
-    disable_language_model=disable_language_model,
-)
-
+NUM_PLAYERS = 3
 
 importance_model = importance_function.AgentImportanceModel(model)
 importance_model_gm = importance_function.ConstantImportanceModel()
@@ -179,6 +167,7 @@ class FormativeMemoryFactoryWithoutBackground(formative_memories.FormativeMemory
 
 ## agent setting start here
 
+
 def make_random_big_five()->str:
   return str({
       'extraversion': random.randint(1, 10),
@@ -188,6 +177,7 @@ def make_random_big_five()->str:
       'agreeableness': random.randint(1, 10),
   })
 
+# 要改这地方
 def get_extras(name, is_main_character):
     if is_main_character:
         return {
@@ -200,32 +190,6 @@ def get_extras(name, is_main_character):
             'main_character': is_main_character,
         }
 
-wanted_desires = ['hunger',
-                  'thirst',
-                  'comfort',
-                  'sleepiness',
-                  'joyfulness',
-                  'spiritual satisfaction',
-                  'social connectivity',
-                  'sense of control',
-                  'recognition',
-                  'sense of superiority']
-# wanted_desires = [
-#     'hunger',
-#     'thirst',
-#     'comfort',
-#     'health',
-#     'sleepiness',
-#     'joyfulness',
-#     'cleanliness',
-#     'safeness',
-#     'passion',
-#     'spiritual satisfaction',
-#     'social connectivity',
-# ]
-
-hidden_desires = ['thirst']
-## agent setting end here
 
 
 
@@ -242,54 +206,6 @@ else:
    wanted_desires = wanted_desires,
    hidden_desires = hidden_desires
 )
-
-# def get_extras_for_specific_agent(name, is_main_character, desires):
-#     if is_main_character and current_agent.lower() == 'value':
-#         return {
-#             'specific_memories': [f'{name} is an attendee of the party.'],
-#             'main_character': is_main_character,
-#             'desires': desires,
-#         }
-#     elif is_main_character:
-#        return {
-#             'specific_memories': [f'{name} is an attendee of the party.'],
-#             'main_character': is_main_character,
-#         }
-#     else:
-#         return {
-#             'specific_memories': [f'{name} is the staff.'],
-#             'main_character': is_main_character,
-#         }
-
-# player_configs = [
-#     formative_memories.AgentConfig(
-#         name='Alice',
-#         gender='female',
-#         goal='Alice wants to enjoy the party in the comfortable way, and also satisfy her desires.' if current_agent.lower() != 'value' else 'Alice wants to enjoy the party in the comfortable way',
-#         context=shared_context+' Alice is a very socially active attendee.',
-#         traits = make_random_big_five(),
-#         extras=get_extras_for_specific_agent(name = 'Alice',
-#                                              is_main_character=True,
-#                                              desires=visual_desire_string.format(agent_name='Alice')),
-#             ),
-#     formative_memories.AgentConfig(
-#         name='Bob',
-#         gender='male',
-#         goal="Bob hopes to meet the guests' needs.",
-#         context=shared_context + " Bob is a very enthusiastic and outgoing staff member, and he stays in the networking lounge.",
-#         traits = make_random_big_five(),
-#         extras=get_extras('Bob', False)
-#             ),
-#     formative_memories.AgentConfig(
-#         name='Charlie',
-#         gender='male',
-#         goal="Charlie wants to enjoy the party and makes more friends.",
-#         context=shared_context + " Charlie is an attendee of the party, and he loves taking photos and networking with other people.",
-#         traits = make_random_big_five(),
-#         extras=get_extras('Charlie', False)
-#       ),
-# ]
-
 
 if Use_Previous_profile:
   numerical_desire = previous_profile['initial_value']
@@ -731,7 +647,6 @@ def start_simulation(current_test_agent: str):
 
 
 if __name__ == '__main__':
-  # for agent in ['LLMob', 'ReAct', 'value', 'BabyAGI']:
-  for agent in test_agents:
+  for agent in tested_agents:
     start_simulation(agent)
     print(f"Finish simulation for {agent}")

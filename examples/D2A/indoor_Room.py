@@ -1,12 +1,13 @@
+import experiment_setup_indoor as setup
+import sys
+if setup.ROOT not in sys.path:
+  sys.path.insert(0, setup.ROOT)
 import collections
 import concurrent.futures
 import datetime
 import random
 import matplotlib.pyplot as plt
 import sys
-ROOT = r"Your path to the folder contain concordia and examples"
-if ROOT not in sys.path:
-  sys.path.insert(0, ROOT)
 from IPython import display
 import sentence_transformers
 from collections.abc import Callable, Sequence
@@ -43,56 +44,34 @@ from concordia.typing.entity_component import EntityWithComponents
 from value_components.init_value_info_social import construct_all_profile_dict
 from value_components import value_comp
 from Environment_construction.generate_indoor_situation import generate_house, generate_prompt
-episode_length = 2
-disable_language_model = True
-st_model = sentence_transformers.SentenceTransformer(
-    'sentence-transformers/all-mpnet-base-v2')
-embedder = lambda x: st_model.encode(x, show_progress_bar=False)
+
+
+## use experiment_setup.py to set up the general setting
+episode_length = setup.episode_length
+disable_language_model = setup.disable_language_model
+st_model = setup.st_model
+embedder = setup.embedder
+tested_agents = setup.tested_agents
+Use_Previous_profile = setup.Use_Previous_profile
+previous_profile = setup.previous_profile
+previous_profile_file = setup.previous_profile_file
+if Use_Previous_profile and previous_profile:
+  print('Use previous profile')
+else:
+  print('dont Use previous profile')
+model = setup.model
+wanted_desires = setup.wanted_desires
+hidden_desires = setup.hidden_desires
+model_name = setup.model_name
 NUM_PLAYERS = 1
-# tested_agents = ['ReAct', 'LLMob', 'value', 'BabyAGI']
-tested_agents = ['ReAct']
+subsub_folder = setup.subsub_folder
+## end here
+
 
 EXP_START_TIME = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-
-
-Use_Previous_profile = False
-if Use_Previous_profile:
-  previous_profile_file = os.path.join(r'examples\D2A\result_folder\indoor_result\2024-12-08_23-17-37', '2024-12-08_23-17-38_ReAct.json')
-  try:
-    with open(previous_profile_file, 'r') as f:
-      previous_profile = json.load(f)
-  except:
-    raise ValueError('The previous profile file is not found.')
-else:
-  previous_profile = None
-
-current_file_path = os.path.dirname(os.path.abspath(__file__))
-result_folder_name = 'result_folder'
-current_folder_path = os.path.join(current_file_path, result_folder_name)
-if not os.path.exists(current_folder_path):
-  os.makedirs(current_folder_path)
-
-subsub_folder = os.path.join(current_folder_path, 'indoor_result')
-if not os.path.exists(subsub_folder):
-  os.makedirs(subsub_folder)
-
 stored_target_folder = os.path.join(subsub_folder, EXP_START_TIME)
 if not os.path.exists(stored_target_folder):
   os.makedirs(stored_target_folder)
-
-
-
-api_type = 'together_ai'
-# model_name='google/gemma-2-9b-it'
-model_name = 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo'
-api_key='Your_API_Key'
-device = 'cpu'
-model = utils.language_model_setup(
-    api_type=api_type,
-    model_name=model_name,
-    api_key=api_key,
-    disable_language_model=disable_language_model,
-)
 
 
 importance_model = importance_function.AgentImportanceModel(model)
@@ -171,48 +150,6 @@ def make_random_big_five()->str:
       'agreeableness': random.randint(1, 10),
   })
 
-# def get_extras(name, is_main_character):
-#     if is_main_character:
-#         return {
-#             'specific_memories': [f'{name} is an attendee of the party.'],
-#             'main_character': is_main_character,
-#         }
-#     else:
-#         return {
-#             'specific_memories': [f'{name} is the staff.'],
-#             'main_character': is_main_character,
-#         }
-
-# wanted_desires = ['hunger', # this is outdoor setting
-#                   'thirst',
-#                   'comfort',
-#                   'sleepiness',
-#                   'joyfulness',
-#                   'spiritual satisfaction',
-#                   'social connectivity',
-#                   'sense of control',
-#                   'recognition',
-#                   'sense of superiority']
-wanted_desires = [
-    'hunger',
-    'thirst',
-    'comfort',
-    'health',
-    'sleepiness',
-    'joyfulness',
-    'cleanliness',
-    'safety',
-    'passion',
-    'spiritual satisfaction',
-    'social connectivity',
-]
-
-hidden_desires = ['thirst']
-## agent setting end here
-
-
-
-## sth that will not change start here
 
 if previous_profile:
   visual_desires_dict, hidden_desires_dict, selected_desire_dict, all_desire_traits_dict, visual_desire_string = construct_all_profile_dict(
@@ -645,6 +582,5 @@ def start_simulation(current_test_agent: str):
 
 if __name__ == '__main__':
   for agent in tested_agents:
-  # for agent in ['value',]:
     start_simulation(agent)
     print(f"Finish simulation for {agent}")
