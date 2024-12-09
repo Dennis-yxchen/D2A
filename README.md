@@ -75,7 +75,7 @@ examples/
      - hidden_desires (will not appear in the context as the hint for agent)
    - the path to store the result
 
-3. **run the experiment** by `python PATH/to/indoor_Room.py` or `python PATH/to/outdoor_party.py`
+3. **run the simulation** by `python PATH/to/indoor_Room.py` or `python PATH/to/outdoor_party.py`
 
 If you want to change the desire-related component, please go to
 TODO:
