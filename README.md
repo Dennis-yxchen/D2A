@@ -13,10 +13,6 @@ Existing task-oriented AI agents often depend on explicit instructions or extern
 
 ## Environment
 
-
-
-## Usage
-
 The D2A environment is under the `examples/D2A` folder.
 
 In D2A folder the file structure is:
@@ -52,6 +48,9 @@ examples/
 └── outdoor_party.py
 ```
 
+## Usage
+
+
 ### Run the simulation:
 1. Set up the **environment dependencies** by:
   ``
@@ -77,7 +76,10 @@ examples/
 
 3. **run the simulation** by `python PATH/to/indoor_Room.py` or `python PATH/to/outdoor_party.py`
 
-To modify desire-related components, reach to the `value_components` folder and follow these steps across different files:
+## Modify desire-related components
+
+Reach the `value_components` folder and follow these steps across different files:
+
 ### value_comp.py
 1. create the new desire component subclass in `value_comp.py`
 ### init_value_info_social.py
