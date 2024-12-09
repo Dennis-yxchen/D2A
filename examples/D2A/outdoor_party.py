@@ -35,7 +35,7 @@ from NPC_agent.generic_support_agent import build_support_agent
 from concordia.language_model import utils
 import json
 import os
-from D2A_agent.ValueAgent import build_value_agent
+from D2A_agent.ValueAgent import build_D2A_agent
 from Baseline_agent.Baseline_ReAct import build_ReAct_agent
 from Baseline_agent.Baseline_LLMob import build_LLMob_agent
 from Baseline_agent.Baseline_BabyAGI import build_BabyAGI_agent
@@ -244,9 +244,9 @@ def _get_current_agent(agent_name, config, mem, clock):
                                   memory=mem,
                                   clock = clock,
                                   update_time_interval=None)
-    elif agent_name == 'value':
+    elif agent_name == 'D2A':
       # directly use the desire profile
-      agent = build_value_agent(config = config,
+      agent = build_D2A_agent(config = config,
                                   context_dict=all_desire_traits_dict,
                                   selected_desire=wanted_desires,
                                   predefined_setting=numerical_desire,
@@ -293,7 +293,7 @@ def build_players_list(blank_memory_factory: blank_memories.MemoryFactory,
                        clock: game_clock.MultiIntervalClock, current_agent: str):
 
   def get_extras_for_specific_agent(name, is_main_character, desires):
-    if is_main_character and current_agent.lower() == 'value':
+    if is_main_character and current_agent.lower() == 'D2A':
         return {
             'specific_memories': [f'{name} is an attendee of the party.'],
             'main_character': is_main_character,
@@ -315,7 +315,7 @@ def build_players_list(blank_memory_factory: blank_memories.MemoryFactory,
       formative_memories.AgentConfig(
           name='Alice',
           gender='female',
-          goal='Alice wants to enjoy the party in the comfortable way, and also satisfy her desires.' if current_agent.lower() != 'value' else 'Alice wants to enjoy the party in the comfortable way',
+          goal='Alice wants to enjoy the party in the comfortable way, and also satisfy her desires.' if current_agent.lower() != 'D2A' else 'Alice wants to enjoy the party in the comfortable way',
           context=shared_context+' Alice is a very socially active attendee.',
           traits = make_random_big_five(),
           extras=get_extras_for_specific_agent(name = 'Alice',

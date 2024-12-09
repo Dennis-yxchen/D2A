@@ -24,7 +24,7 @@ tested_agents = ['ReAct']
 
 # whether to use the previous profile, if set to True, the previous profile will be used
 # used to run with the same profile as the previous run
-Use_Previous_profile = True
+Use_Previous_profile = False
 previous_profile_file = None
 previous_profile = None
 
