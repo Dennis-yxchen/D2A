@@ -71,13 +71,13 @@ examples/
      - model_name
      - api_key
    - desires-related stuff (the desire dimensions to be used while simulating)
-     - visible_desires (will appear in the context as the hint for agent)
-     - hidden_desires (will not appear in the context as the hint for agent)
+     - visible_desires (will appear in the context as the hint for the agent)
+     - hidden_desires (will not appear in the context as the hint for the agent)
    - the path to store the result
 
 3. **run the simulation** by `python PATH/to/indoor_Room.py` or `python PATH/to/outdoor_party.py`
 
-If you want to change the desire-related component, please go to
+If you want to modify the desire-related component, please go to
 TODO:
 1. write the comment for value component about how to add new desire
 2. rename the `value` agent to `D2A`
