@@ -106,12 +106,6 @@ class MCTSActComponent(entity_component.ActingComponent):
         action_context = f'{agent_name} takes the action: \n{proposed_action} \n'
         desire_status = f"{agent_name}'s original desire states: \n{self._get_desire_status()}\n"
         output_format = (f"Please output the states of desire-state observations in the following format: \n")
-                        #  "\'hunger: <hunger state> \n thirst: <thirst state> \n "
-                        #  "sleepiness: <sleepiness state> \n cleaness: <cleaness state> \n "
-                        #  "safeness: <safeness state> \n joyness: <joyness state> \n "
-                        #  "passion: <passion state> \n confort: <confort state> \n health: <health state> \n "
-                        #  "spiritual satisfaction: <spiritual satisfaction state> \n "
-                        #  "social connectivity: <social connectivity state> \n"
         for desire in self._desire_name:
             output_format += f"{desire}: <{desire} state> \n"
         total_prompt = imagine_prompt + desire_status + action_context + output_format
