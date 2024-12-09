@@ -11,10 +11,73 @@ Existing task-oriented AI agents often depend on explicit instructions or extern
 
 ![image](imgs/framework.png)
 
-## Envorionment
+## Environment
 
 
 
 ## Usage
 
+The D2A environment is under the `examples/D2A` folder.
 
+In D2A folder the file structure is:
+```
+examples/
+├── D2A/
+│   ├── Baseline_agent/
+│   │   ├── BabyAGI_ActComp.py
+│   │   ├── Baseline_BabyAGI.py
+│   │   ├── Baseline_comp.py
+│   │   ├── Baseline_LLMob.py
+│   │   ├── Baseline_ReAct.py
+│   │   ├── LLMob_ActComp.py
+│   │   └── ReAct_ActComp.py
+│   └── D2A_agent/
+│       ├── Value_ActComp.py
+│       └── ValueAgent.py
+├── Environment_construction/
+│   └── generate_indoor_situation.py
+├── NPC_agent/
+│   └── generic_support_agent.py
+├── result_folder/
+├── value_components/
+│   ├── hardcoded_value_state.py
+│   └── init_value_info_social.py
+│
+├── value_comp.py
+├── __init__.py
+├── experiment_setup_indoor.py
+├── experiment_setup_outdoor.py
+├── indoor_Room.py
+├── NullObservation.py
+└── outdoor_party.py
+```
+
+To run the simulation:
+1. setup the environment by:
+  ``
+2. setup the experiment in `experiment_setup_indoor.py` and `experiment_setup_outdoor.py`
+   - ROOT (the root path of the project, the folder which has `concordia` and `examples` in it)
+   - episode_length
+   - disable_language_model
+   - st_model
+   - tested_agents
+   - whether to use previous profile
+     - Use_Previous_profile
+     - previous_profile_file
+     - previous_profile
+     - previous_profile's path
+   - LLM to be used (details refers to concordia package)
+     - api_type
+     - model_name
+     - api_key
+   - desires-related stuff (the desires to be used when simulating)
+     - wanted_desires (will appear as the hint for agent)
+     - hidden_desires (will not appear as the hint for agent)
+   - the path to restore the result
+
+3. run the experiment by `python PATH/to/indoor_Room.py` and `python PATH/to/outdoor_party.py`
+
+If you want to change the desire-related component, please go to
+TODO:
+1. write the comment for value component about how to add new desire
+2. rename the `value` agent to `D2A`
