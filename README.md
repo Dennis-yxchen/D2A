@@ -52,10 +52,10 @@ examples/
 └── outdoor_party.py
 ```
 
-To run the simulation:
-1. setup the environment by:
+### Run the simulation:
+1. Set up the **environment dependencies** by:
   ``
-2. setup the experiment in `experiment_setup_indoor.py` and `experiment_setup_outdoor.py`
+2. Set up the **experiment setting** in `experiment_setup_indoor.py` and `experiment_setup_outdoor.py`
    - ROOT (the root path of the project, the folder which has `concordia` and `examples` in it)
    - episode_length
    - disable_language_model
@@ -66,16 +66,16 @@ To run the simulation:
      - previous_profile_file
      - previous_profile
      - previous_profile's path
-   - LLM to be used (details refers to concordia package)
+   - Backbone LLM (details refers to concordia package)
      - api_type
      - model_name
      - api_key
-   - desires-related stuff (the desires to be used when simulating)
-     - wanted_desires (will appear as the hint for agent)
-     - hidden_desires (will not appear as the hint for agent)
-   - the path to restore the result
+   - desires-related stuff (the desire dimensions to be used while simulating)
+     - visible_desires (will appear in the context as the hint for agent)
+     - hidden_desires (will not appear in the context as the hint for agent)
+   - the path to store the result
 
-3. run the experiment by `python PATH/to/indoor_Room.py` and `python PATH/to/outdoor_party.py`
+3. **run the experiment** by `python PATH/to/indoor_Room.py` or `python PATH/to/outdoor_party.py`
 
 If you want to change the desire-related component, please go to
 TODO:
