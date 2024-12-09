@@ -37,7 +37,7 @@ class ConstantProfile(agent_components.constant.Constant):
   def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-def build_value_agent(
+def build_D2A_agent(
     *,
     config: formative_memories.AgentConfig,
     context_dict: Mapping[str, str], # contain value related context

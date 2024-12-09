@@ -77,7 +77,22 @@ To run the simulation:
 
 3. run the experiment by `python PATH/to/indoor_Room.py` and `python PATH/to/outdoor_party.py`
 
-If you want to change the desire-related component, please go to
+To modify desire-related components, navigate to the `value_components` folder and follow these steps across different files:
+## value_comp.py
+1. create the new desire component subclass in `value_comp.py`
+## init_value_info_social.py
+2. Modify the profile_dict by adding a new entry:
+   ```python
+    {"descriptive_adjective": "desire_name"}
+   ```
+3. Add the desire name to the `values_names` list
+4. Add corresponding descriptions to `values_names_descriptions`
+## hardcoded_value_state.py
+1. Add numerical value mappings to `hardcore_state`. You can use GPT to design appropriate mapping scales.
+
+## Optional: Enable LLM Value Conversion
+To use LLM for action value conversion, goto `value_comp.py`
+- replace `_convert_numeric_desire_to_qualitative_by_hard_coding(self)` function in the `_make_pre_act_value(self)` to `_convert_numeric_desire_to_qualitative(self)`.
+
 TODO:
-1. write the comment for value component about how to add new desire
-2. rename the `value` agent to `D2A`
+1. rename the `value` agent to `D2A`
