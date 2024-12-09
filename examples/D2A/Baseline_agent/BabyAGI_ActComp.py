@@ -77,16 +77,7 @@ class BabyAGIActComponent(entity_component.ActingComponent):
         self,
         contexts: entity_component.ComponentContextMapping,
     ) -> str:
-        # if self._component_order is None:
-        #     return '\n'.join(
-        #         context for context in contexts.values() if context
-        # )
-        # else:
-        #     order = self._component_order + tuple(sorted(
-        #         set(contexts.keys()) - set(self._component_order)))
-        #     return '\n'.join(
-        #         contexts[name] for name in order if contexts[name]
-        #     )
+
         if self._component_order is None:
             other_comp = [context for name, context in contexts.items()
                           if name != self._background_component_name
