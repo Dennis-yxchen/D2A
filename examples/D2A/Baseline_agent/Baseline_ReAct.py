@@ -147,7 +147,6 @@ def build_ReAct_agent(
         logging_channel=measurements.get_channel('Instructions').on_next,
     )
 
-    # should we use the current observation?
     observation_without_pre_act = ObservationWithoutPreAct(
         clock_now=clock.now,
         timeframe=datetime.timedelta(hours=1),
@@ -155,13 +154,6 @@ def build_ReAct_agent(
         logging_channel=measurements.get_channel('Observation').on_next,
     )
 
-    # observation_label = '\nObservation'
-    # observation = agent_components.observation.Observation(
-    #     clock_now=clock.now,
-    #     timeframe=clock.get_step_size(),
-    #     pre_act_key=observation_label,
-    #     logging_channel=measurements.get_channel('Observation').on_next,
-    # )
 
     # background knowledge
     background_knowledge = BackgroundKnowledge(
@@ -176,7 +168,6 @@ def build_ReAct_agent(
         logging_channel=measurements.get_channel('TimeDisplay').on_next,
     )
 
-    # should we need the profile?
 
     if config.goal:
         goal_label = '\nGoal'
@@ -188,8 +179,7 @@ def build_ReAct_agent(
         goal_label = None
         overarching_goal = None
 
-    # value component
-    ## value component
+    ## Value Components
     general_pre_act_label = f"\n{agent_name}" + "'s current feeling of {desire_name} is"
     ### init the information to be used in the value component
     detailed_values_dict, expected_values = init_value_info_social.preprocess_value_information(context_dict, predefined_setting, selected_desires=selected_desire)
@@ -204,7 +194,7 @@ def build_ReAct_agent(
                                                                      detailed_values_dict,
                                                                      expected_values,
                                                                      wanted_desires=selected_desire)
-    # all_desire_components = get_all_desire_components(model, general_pre_act_label, observation_without_pre_act, clock, measurements, detailed_values_dict, expected_values)
+
 
 
     target_tracking_desire_component = dict()
@@ -261,12 +251,6 @@ def build_ReAct_agent(
         logging_channel=measurements.get_channel('ActComponent').on_next,
     )
 
-    # act_component = agent_components.concat_act_component.ConcatActComponent(
-    #   model=model,
-    #   clock=clock,
-    #   component_order=component_order,
-    #   logging_channel=measurements.get_channel('ActComponent').on_next,
-    # )
 
     agent = entity_agent_with_logging.EntityAgentWithLogging(
         agent_name=agent_name,

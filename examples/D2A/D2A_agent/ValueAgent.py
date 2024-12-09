@@ -81,7 +81,6 @@ def build_D2A_agent(
         logging_channel=measurements.get_channel('Background Knowledge').on_next,
     )
 
-    # 一会把context也加到memory
     identity_label = '\nIdentity characteristics'
     identity = agent_components.question_of_query_associated_memories.Identity(
        model = model,
@@ -127,10 +126,10 @@ def build_D2A_agent(
         logging_channel=measurements.get_channel(profile_label).on_next,
     )
 
-    ## end here
 
-    ## value component
+    ## Value Components
     general_pre_act_label = f"\n{agent_name}" + "'s current feeling of {desire_name} is"
+    
     ### init the information to be used in the value component
     detailed_values_dict, expected_values = init_value_info_social.preprocess_value_information(context_dict, predefined_setting, selected_desire)
     print(f"detailed_values_dict: {detailed_values_dict}")
@@ -193,6 +192,7 @@ def build_D2A_agent(
         # Place goal after the instructions.
         component_order.insert(1, goal_label)
 
+    ## Naive Act Component
     # act_component = agent_components.concat_act_component.ConcatActComponent(
     #     model=model,
     #     clock=clock,
