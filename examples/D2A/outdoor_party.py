@@ -178,8 +178,8 @@ def make_random_big_five()->str:
   })
 
 # 要改这地方
-def get_extras(name, is_main_character):
-    if is_main_character:
+def get_extras(name, is_main_character, is_staff):
+    if not is_staff:
         return {
             'specific_memories': [f'{name} is an attendee of the party.'],
             'main_character': is_main_character,
@@ -304,11 +304,12 @@ def build_players_list(blank_memory_factory: blank_memories.MemoryFactory,
             'specific_memories': [f'{name} is an attendee of the party.'],
             'main_character': is_main_character,
         }
-    else:
-        return {
-            'specific_memories': [f'{name} is the staff.'],
-            'main_character': is_main_character,
-        }
+    # else:
+    #     return {
+    #         'specific_memories': [f'{name} is the staff.'],
+    #         'main_character': is_main_character,
+    #     }
+    raise ValueError('main_character should be True for the main character.')
 
   player_configs = [
       formative_memories.AgentConfig(
@@ -327,7 +328,7 @@ def build_players_list(blank_memory_factory: blank_memories.MemoryFactory,
           goal="Bob hopes to meet the guests' needs.",
           context=shared_context + " Bob is a very enthusiastic and outgoing staff member, and he stays in the networking lounge.",
           traits = make_random_big_five(),
-          extras=get_extras('Bob', False)
+          extras=get_extras('Bob', False, is_staff=True)
               ),
       formative_memories.AgentConfig(
           name='Charlie',
@@ -335,7 +336,7 @@ def build_players_list(blank_memory_factory: blank_memories.MemoryFactory,
           goal="Charlie wants to enjoy the party and makes more friends.",
           context=shared_context + " Charlie is an attendee of the party, and he loves taking photos and networking with other people.",
           traits = make_random_big_five(),
-          extras=get_extras('Charlie', False)
+          extras=get_extras('Charlie', False, is_staff=False)
         ),
     ]
   player_configs = player_configs[:NUM_PLAYERS]
