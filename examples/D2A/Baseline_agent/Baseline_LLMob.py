@@ -346,8 +346,8 @@ def build_LLMob_agent(
         pre_act_key=DEFAULT_PRE_ACT_KEY,
         logging_channel=measurements.get_channel('LLMobPlan').on_next,
     )
-    # value component
-    ## value component
+    
+    ## Value Components
     general_pre_act_label = f"\n{agent_name}" + "'s current feeling of {desire_name} is"
     ### init the information to be used in the value component
     detailed_values_dict, expected_values = init_value_info_social.preprocess_value_information(context_dict, predefined_setting, selected_desire)
@@ -415,12 +415,6 @@ def build_LLMob_agent(
         logging_channel=measurements.get_channel('ActComponent').on_next,
     )
 
-    # act_component = agent_components.concat_act_component.ConcatActComponent(
-    #   model=model,
-    #   clock=clock,
-    #   component_order=component_order,
-    #   logging_channel=measurements.get_channel('ActComponent').on_next,
-    # )
 
     agent = entity_agent_with_logging.EntityAgentWithLogging(
         agent_name=agent_name,
