@@ -51,7 +51,7 @@ examples/
 ## Usage
 
 
-### Run the simulation:
+### Run the simulation
 1. Set up the **environment dependencies** by:
   ``
 2. Set up the **experiment setting** in `experiment_setup_indoor.py` and `experiment_setup_outdoor.py`
