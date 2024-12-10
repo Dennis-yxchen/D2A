@@ -22,7 +22,7 @@ cd D2A
 conda env create -f environment_D2A.yml
 conda activate D2A
 ```
-1. Re-install the Concordia module (in the `D2A` folder that contains `concordia` and `examples`)
+3. Re-install the Concordia module (in the `D2A` folder that contains `concordia` and `examples`)
 ```bash
 pip install --editable .[dev]
 ```
