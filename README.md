@@ -24,7 +24,7 @@ conda activate D2A
 ```
 3. Re-install the Concordia module (in the `D2A` folder that contains `concordia` and `examples`)
 ```bash
-pip install --editable .[dev]
+pip install -e .[dev]
 ```
 
 
