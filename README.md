@@ -1,7 +1,7 @@
 # D2A
 **Simulating Human-like Daily Activities with Desire-driven Autonomy**
 
-paper link:
+paper link: [http://arxiv.org/abs/2412.06435](http://arxiv.org/abs/2412.06435)
 
 ## Abstract
 
@@ -65,7 +65,10 @@ examples/
 └── outdoor_party.py
 ```
 
-### Run the simulation:
+## Usage
+
+
+### Run the simulation
 1. Set up the **environment dependencies** by:
   ``
 2. Set up the **experiment setting** in `experiment_setup_indoor.py` and `experiment_setup_outdoor.py`
@@ -203,6 +206,6 @@ examples/
   ]
   ```
 
-### Optional: Enable LLM Value Conversion
-To use LLM for action value conversion, goto `value_comp.py`
-- replace `_convert_numeric_desire_to_qualitative_by_hard_coding(self)` function in the `_make_pre_act_value(self)` to `_convert_numeric_desire_to_qualitative(self)`.
+#### Optional: Enable LLM Value Conversion
+To use LLM for action value conversion, reach `value_comp.py`
+- replace `_convert_numeric_desire_to_qualitative_by_hard_coding(self)` function in the `_make_pre_act_value(self)` with `_convert_numeric_desire_to_qualitative(self)`.
