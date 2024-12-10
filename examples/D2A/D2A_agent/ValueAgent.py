@@ -13,16 +13,13 @@ from concordia.language_model import language_model
 from concordia.memory_bank import legacy_associative_memory
 from concordia.typing import entity_component
 from concordia.utils import measurements as measurements_lib
-# from concordia.components.agent.question_of_query_associated_memories import Identity, IdentityWithoutPreAct
 from concordia.components.agent import memory_component
-# from init_value_info import preprocess_value_information, get_all_desire_components
 import importlib
 IMPORT_AGENT_BASE_DIR = 'examples.D2A.value_components'
 init_value_info_social = importlib.import_module(
     f'{IMPORT_AGENT_BASE_DIR}.init_value_info_social')
 value_comp = importlib.import_module(f'{IMPORT_AGENT_BASE_DIR}.value_comp')
-# import value_comp
-# from init_value_info_social import preprocess_value_information, get_all_desire_components
+
 
 import NullObservation
 from .Value_ActComp import MCTSActComponent
@@ -129,22 +126,15 @@ def build_D2A_agent(
 
     ## Value Components
     general_pre_act_label = f"\n{agent_name}" + "'s current feeling of {desire_name} is"
-    
+
     ### init the information to be used in the value component
     detailed_values_dict, expected_values = init_value_info_social.preprocess_value_information(context_dict, predefined_setting, selected_desire)
-    print(f"detailed_values_dict: {detailed_values_dict}")
-    print(f"expected_values: {expected_values}")
-    print(f"len of detailed_values_dict: {len(detailed_values_dict)}")
-    print(f"len of expected_values: {len(expected_values)}")
     all_desire_components = init_value_info_social.get_all_desire_components(model, general_pre_act_label, observation, clock, measurements, detailed_values_dict, expected_values, wanted_desires=selected_desire)
 
 
     target_tracking_desire_component = dict()
     for desire_name, desire_component in all_desire_components.items():
         target_tracking_desire_component[_get_class_name(desire_component)] = desire_component
-
-    print(f"expected_values in value agent: {expected_values}")
-    print(f"predefined_setting in value agent: {predefined_setting}")
 
     value_tracker = value_comp.ValueTracker(
         clock_now=clock.now,
@@ -191,14 +181,6 @@ def build_D2A_agent(
         components_of_agent[goal_label] = overarching_goal
         # Place goal after the instructions.
         component_order.insert(1, goal_label)
-
-    ## Naive Act Component
-    # act_component = agent_components.concat_act_component.ConcatActComponent(
-    #     model=model,
-    #     clock=clock,
-    #     component_order=component_order,
-    #     logging_channel=measurements.get_channel('ActComponent').on_next,
-    # )
 
     act_component = MCTSActComponent(
         model=model,

@@ -64,7 +64,8 @@ wanted_desires = [
   'social connectivity',
   'sense of control',
   'recognition',
-  'sense of superiority'
+  'sense of superiority',
+  # 'sense of wonder'
   ]
 ###
 # the hidden desires that will be used in the simulation

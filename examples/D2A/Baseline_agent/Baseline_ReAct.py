@@ -26,10 +26,8 @@ IMPORT_AGENT_BASE_DIR = 'examples.D2A.value_components'
 init_value_info_social = importlib.import_module(
     f'{IMPORT_AGENT_BASE_DIR}.init_value_info_social')
 value_comp = importlib.import_module(f'{IMPORT_AGENT_BASE_DIR}.value_comp')
-# from init_value_info_social import preprocess_value_information, get_all_desire_components_without_PreAct
-# import value_comp
+
 from .ReAct_ActComp import ReActComponent
-# from init_value_info import *
 import NullObservation
 
 
@@ -183,10 +181,6 @@ def build_ReAct_agent(
     general_pre_act_label = f"\n{agent_name}" + "'s current feeling of {desire_name} is"
     ### init the information to be used in the value component
     detailed_values_dict, expected_values = init_value_info_social.preprocess_value_information(context_dict, predefined_setting, selected_desires=selected_desire)
-    print(f"detailed_values_dict: {detailed_values_dict}")
-    print(f"expected_values: {expected_values}")
-    print(f"len of detailed_values_dict: {len(detailed_values_dict)}")
-    print(f"len of expected_values: {len(expected_values)}")
     all_desire_components = init_value_info_social.get_all_desire_components_without_PreAct(model,
                                                                      general_pre_act_label,
                                                                      observation_without_pre_act,

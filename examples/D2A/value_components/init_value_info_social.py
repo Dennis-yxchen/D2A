@@ -22,20 +22,21 @@ from concordia.utils import measurements as measurements_lib
 from concordia.components.agent import memory_component
 
 profile_dict = {
-  'gluttonous': 'hunger', # 相关
-  'hedonistic': 'joyfulness', # 相关, 期望值高
-  'lazy': 'passion', # 下降更快, 默认6
-  'sociable': 'social connectivity', # 相关, 期望值高
-  'health-conscious': 'health', # 加了
+  'gluttonous': 'hunger',
+  'hedonistic': 'joyfulness',
+  'lazy': 'passion',
+  'sociable': 'social connectivity',
+  'health-conscious': 'health',
   'spiritual': 'spiritual satisfaction',
   'materialistic': 'comfort',
   'obsessional about cleanliness': 'cleanliness',
-  'fatigable': 'sleepiness', # 不相关
+  'fatigable': 'sleepiness',
   'timid': 'safety',
   'fast-metabolizing': 'thirst',
   'reputation-conscious': 'recognition',
   'possessive': 'sense of control',
-  'competitiveness': 'sense of superiority'
+  'competitiveness': 'sense of superiority',
+  # "curious": "sense of wonder",
 }
 
 decrease_map = {
@@ -59,6 +60,7 @@ values_names = [
     'recognition',
     'sense of control',
     'sense of superiority',
+    # "sense of wonder",
 ]
 
 values_names_descriptions = {
@@ -88,7 +90,9 @@ values_names_descriptions = {
 
     'sense of control': 'The value of sense of control ranges from 0 to 10. A score of 0 means you feel completely powerless, lacking influence over your circumstances, while a score of 10 means you feel highly in control, with a strong ability to influence and manage your life and environment.',
 
-    'sense of superiority': 'The value of sense of superiority ranges from 0 to 10. A score of 0 means you feel no distinction over others, lacking any sense of being ahead of your peers, while a score of 10 means you feel highly superior, believing you are more capable or distinguished than those around you.'
+    'sense of superiority': 'The value of sense of superiority ranges from 0 to 10. A score of 0 means you feel no distinction over others, lacking any sense of being ahead of your peers, while a score of 10 means you feel highly superior, believing you are more capable or distinguished than those around you.',
+
+    # 'sense of wonder': "The value of sense of wonder ranges from 0 to 10. A score of 0 means you feel no curiosity or amazement about the world, lacking any interest in exploration or new experiences, while a score of 10 means you are deeply fascinated and captivated by the world around you, constantly seeking to discover, learn, and marvel at new things."
 }
 
 
@@ -114,9 +118,9 @@ def construct_all_profile_dict(wanted_desires: list[str], hidden_desires: list[s
 
   selected_profile_dict = dict() # key: desire, value: adj
   inverted_profile_dict = {desire: adj for adj, desire in profile_dict.items()}
-  pprint(f"inverted_profile_dict: {inverted_profile_dict}")
+  # pprint(f"inverted_profile_dict: {inverted_profile_dict}")
   for desire in wanted_desires:
-    pprint(f"desire: {desire}")
+    # pprint(f"desire: {desire}")
     desire_description = dict()
     desire_description['adj'] = inverted_profile_dict[desire]
     desire_description['description'] = values_dict[desire]
@@ -173,23 +177,26 @@ def preprocess_value_information(context_dict, predefined_setting, selected_desi
     ### init the information to be used in the value component
     revert_profile_dict = {value: adj for adj, value in profile_dict.items()}
     expected_values = dict()
+
+    # desires that should be reversed, i.e. the higher the value, the worse the situation
     should_reverse = [
        'hunger',
        'thirst',
        'sleepiness',
     ]
 
+    # desires that should have a fixed expected value instead of using the default calculation
     fix_expected_value = {'sleepiness': 3,
                           'passion': 8}
 
     return_dict = dict()
 
-    print(f"predefined: {predefined_setting}") # desire name: initial value # selected desires
-    print(f"context: {context_dict}") # adj: degree of decrease # selected desires
-    print(f"decrease_map: {decrease_map}") # degree of decrease : step of decrease
-    pprint(f"revert_profile_dict: {revert_profile_dict}") # desire name: adj # all the desires
-    pprint(f"values_dict: {values_dict}") # desire name: description # all the desires
-    pprint(f"selected_desires: {selected_desires}") # selected desires
+    # print(f"predefined: {predefined_setting}") # desire name: initial value # selected desires
+    # print(f"context: {context_dict}") # adj: degree of decrease # selected desires
+    # print(f"decrease_map: {decrease_map}") # degree of decrease : step of decrease
+    # pprint(f"revert_profile_dict: {revert_profile_dict}") # desire name: adj # all the desires
+    # pprint(f"values_dict: {values_dict}") # desire name: description # all the desires
+    # pprint(f"selected_desires: {selected_desires}") # selected desires
 
     for name, description in values_dict.items():
         detailed_desire_setting_dict = dict()
@@ -197,8 +204,8 @@ def preprocess_value_information(context_dict, predefined_setting, selected_desi
             continue
         adj_of_value = revert_profile_dict[name]
         detailed_desire_setting_dict['adj'] = adj_of_value
-        pprint(f"adj_of_value: {adj_of_value}")
-        pprint(f"context_dict: {context_dict}")
+        # pprint(f"adj_of_value: {adj_of_value}")
+        # pprint(f"context_dict: {context_dict}")
         degree_of_decrease = context_dict[adj_of_value]
         detailed_desire_setting_dict['degree of decrease'] = degree_of_decrease # qualitative value
         detailed_desire_setting_dict['step of decrease'] = decrease_map[degree_of_decrease] # numerical value
@@ -260,6 +267,8 @@ def get_all_desire_components_without_PreAct(model, general_pre_act_key:str, obs
         init = value_comp.SenseOfControlWithoutPreAct
       elif desire == 'sense of superiority':
         init = value_comp.SenseOfSuperiorityWithoutPreAct
+      # elif desire == 'sense of wonder':
+      #   init = value_comp.SenseOfWonderWithoutPreAct
       else:
         raise ValueError(f"Invalid desire: {desire}")
 
@@ -286,7 +295,7 @@ def get_all_desire_components_without_PreAct(model, general_pre_act_key:str, obs
     return return_dict
 
 def get_all_desire_components(model, general_pre_act_key:str, observation, clock, measurements, detailed_values_dict, expected_values, wanted_desires):
-    pprint(f"detailed_values_dict: {detailed_values_dict}")
+    # pprint(f"detailed_values_dict: {detailed_values_dict}")
     return_dict = dict()
 
     for desire in wanted_desires:
@@ -318,6 +327,8 @@ def get_all_desire_components(model, general_pre_act_key:str, observation, clock
         init = value_comp.SenseOfControl
       elif desire == 'sense of superiority':
         init = value_comp.SenseOfSuperiority
+      # elif desire == 'sense of wonder':
+      #   init = value_comp.SenseOfWonder
       else:
         raise ValueError(f"Invalid desire: {desire}")
 

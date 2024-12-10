@@ -339,18 +339,6 @@ def build_game_master(main_character, players, player_names, memories, clock, pl
       verbose=False,
       components=[player_status],
   )
-#   convo_externality = gm_components.conversation.Conversation(
-#     players,
-#     model,
-#     clock=clock,
-#     memory=game_master_memory,
-#     burner_memory_factory=blank_memory_factory,
-#     components=[player_status],
-#     cap_nonplayer_characters=1,
-#     shared_context=shared_context,
-#     max_conversation_length = 3,
-#     verbose=False,
-# )
   convo_externality = None
 
   env = game_master.GameMaster(
@@ -364,7 +352,6 @@ def build_game_master(main_character, players, player_names, memories, clock, pl
           direct_effect_externality,
           relevant_events,
           time_display,
-          # convo_externality,
       ],
       randomise_initiative=True,
       player_observes_event=False,
@@ -413,7 +400,7 @@ def start_simulation(current_test_agent: str):
   all_gm_memories = env._memory.retrieve_recent(k=10000, add_time=True)
 
   detailed_story = '\n'.join(all_gm_memories)
-  print('len(detailed_story): ', len(detailed_story))
+  # print('len(detailed_story): ', len(detailed_story))
   # print(detailed_story)
 
   episode_summary = model.sample_text(
@@ -488,7 +475,7 @@ def start_simulation(current_test_agent: str):
       if previous_one_delta and current_one_delta: # if both are not None
         # if delta smaller than previous one, record it
         delta_change = [k for k in current_one_delta.keys() if current_one_delta[k] < previous_one_delta[k]]
-        print(f"Action: {action}, Delta Change: {delta_change}")
+        # print(f"Action: {action}, Delta Change: {delta_change}")
       change_in_desire[index] = delta_change
 
 
@@ -507,29 +494,29 @@ def start_simulation(current_test_agent: str):
       json_result['step'] = episode_length
 
       whole_delta_tracker = value_tracker.get_whole_delta_tracker()
-      print(f"whole_delta_tracker: {whole_delta_tracker}")
+      # print(f"whole_delta_tracker: {whole_delta_tracker}")
       json_result['whole_delta'] = {int(k): float(v) for k, v in whole_delta_tracker.items()}
 
       individual_delta_tracker = value_tracker.get_individual_delta_tracker()
-      print(f"individual_delta_tracker: {individual_delta_tracker}")
+      # print(f"individual_delta_tracker: {individual_delta_tracker}")
       json_result['individual_delta'] = {
           int(k_step): {delta: float(value) for delta, value in delta_value_pair.items()}
           for k_step, delta_value_pair in individual_delta_tracker.items()
       }
 
       individual_desire_tracker = value_tracker.get_individual_desire_tracker()
-      print(f"individual_desire_tracker: {individual_desire_tracker}")
+      # print(f"individual_desire_tracker: {individual_desire_tracker}")
       json_result['individual_desire'] = {
           int(k_step): {desire: int(value) for desire, value in desire_value_pair.items()}
           for k_step, desire_value_pair in individual_desire_tracker.items()
       }
 
       individual_qualitative_desire_tracker = value_tracker.get_individual_qualitative_desire_tracker()
-      print(f"individual_qualitative_desire_tracker: {individual_qualitative_desire_tracker}")
+      # print(f"individual_qualitative_desire_tracker: {individual_qualitative_desire_tracker}")
       json_result['individual_qualitative_desire'] = {int(k): v for k,v in individual_qualitative_desire_tracker.items()}
 
       expected_values = value_tracker.get_expected_value_dict()
-      print(f"expected_values: {expected_values}")
+      # print(f"expected_values: {expected_values}")
       json_result['expected_values'] = {desire_name: float(exp_value) for desire_name, exp_value in expected_values.items()}
 
       profile = visual_desire_string
