@@ -18,13 +18,13 @@ _ASSOCIATIVE_RETRIEVAL = legacy_associative_memory.RetrieveAssociative()
 DEFAULT_PRE_ACT_KEY = 'Act'
 def reformat_prioritized_actions(response: str, this_action_id: int):
   new_actions = response.split("\n")
-  print(f"new_actions: {new_actions}")
+  # print(f"new_actions: {new_actions}")
   prioritized_action_list = []
   for action_string in new_actions:
     if not action_string.strip(): # skip empty lines
       continue
     action_parts = action_string.strip().split(".", 1)
-    print(f"action_parts: {action_parts}")
+    # print(f"action_parts: {action_parts}")
     if len(action_parts) == 2:
           action_id = action_parts[0].strip()
           action_name = action_parts[1].strip()

@@ -66,9 +66,9 @@ class desire(agent_components.action_spec_ignored.ActionSpecIgnored):
         self._MAX_ITER = MAX_ITER
 
         self._decrease_interval_minutes = datetime.timedelta(hours=decrease_interval)
-        print(f"decrease_interval_minutes: {self._decrease_interval_minutes}")
-        print(f"time_step: {self._time_step}")
-        print(f"decrease_step: {decrease_step}")
+        # print(f"decrease_interval_minutes: {self._decrease_interval_minutes}")
+        # print(f"time_step: {self._time_step}")
+        # print(f"decrease_step: {decrease_step}")
         self.decrease_probability = decrease_step / (self._decrease_interval_minutes / self._time_step)
 
     # for update the value of the desire
@@ -161,7 +161,6 @@ class desire(agent_components.action_spec_ignored.ActionSpecIgnored):
         reflection_prompt_history = ""
 
         current_step = 0
-        print(f"The current magnitude value of {self._value_name} is {round(self._value)}, the observation is {observation_value}")
 
         reflective_log = dict()
 
@@ -240,7 +239,6 @@ class desire(agent_components.action_spec_ignored.ActionSpecIgnored):
             question = f'Current time: {self._clock_now()}.\n{question}'
 
         prompt = interactive_document.InteractiveDocument(self._model)
-        print(f"_convert_numeric_desire_to_qualitative question: {question}")
         current_quatitative_value = prompt.open_question(
             question,
             max_tokens=1200,

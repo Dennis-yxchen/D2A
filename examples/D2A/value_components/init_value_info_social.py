@@ -114,9 +114,9 @@ def construct_all_profile_dict(wanted_desires: list[str], hidden_desires: list[s
 
   selected_profile_dict = dict() # key: desire, value: adj
   inverted_profile_dict = {desire: adj for adj, desire in profile_dict.items()}
-  pprint(f"inverted_profile_dict: {inverted_profile_dict}")
+  # pprint(f"inverted_profile_dict: {inverted_profile_dict}")
   for desire in wanted_desires:
-    pprint(f"desire: {desire}")
+    # pprint(f"desire: {desire}")
     desire_description = dict()
     desire_description['adj'] = inverted_profile_dict[desire]
     desire_description['description'] = values_dict[desire]
@@ -187,12 +187,12 @@ def preprocess_value_information(context_dict, predefined_setting, selected_desi
 
     return_dict = dict()
 
-    print(f"predefined: {predefined_setting}") # desire name: initial value # selected desires
-    print(f"context: {context_dict}") # adj: degree of decrease # selected desires
-    print(f"decrease_map: {decrease_map}") # degree of decrease : step of decrease
-    pprint(f"revert_profile_dict: {revert_profile_dict}") # desire name: adj # all the desires
-    pprint(f"values_dict: {values_dict}") # desire name: description # all the desires
-    pprint(f"selected_desires: {selected_desires}") # selected desires
+    # print(f"predefined: {predefined_setting}") # desire name: initial value # selected desires
+    # print(f"context: {context_dict}") # adj: degree of decrease # selected desires
+    # print(f"decrease_map: {decrease_map}") # degree of decrease : step of decrease
+    # pprint(f"revert_profile_dict: {revert_profile_dict}") # desire name: adj # all the desires
+    # pprint(f"values_dict: {values_dict}") # desire name: description # all the desires
+    # pprint(f"selected_desires: {selected_desires}") # selected desires
 
     for name, description in values_dict.items():
         detailed_desire_setting_dict = dict()
@@ -200,8 +200,8 @@ def preprocess_value_information(context_dict, predefined_setting, selected_desi
             continue
         adj_of_value = revert_profile_dict[name]
         detailed_desire_setting_dict['adj'] = adj_of_value
-        pprint(f"adj_of_value: {adj_of_value}")
-        pprint(f"context_dict: {context_dict}")
+        # pprint(f"adj_of_value: {adj_of_value}")
+        # pprint(f"context_dict: {context_dict}")
         degree_of_decrease = context_dict[adj_of_value]
         detailed_desire_setting_dict['degree of decrease'] = degree_of_decrease # qualitative value
         detailed_desire_setting_dict['step of decrease'] = decrease_map[degree_of_decrease] # numerical value
@@ -289,7 +289,7 @@ def get_all_desire_components_without_PreAct(model, general_pre_act_key:str, obs
     return return_dict
 
 def get_all_desire_components(model, general_pre_act_key:str, observation, clock, measurements, detailed_values_dict, expected_values, wanted_desires):
-    pprint(f"detailed_values_dict: {detailed_values_dict}")
+    # pprint(f"detailed_values_dict: {detailed_values_dict}")
     return_dict = dict()
 
     for desire in wanted_desires:

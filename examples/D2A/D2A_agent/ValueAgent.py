@@ -129,19 +129,12 @@ def build_D2A_agent(
 
     ### init the information to be used in the value component
     detailed_values_dict, expected_values = init_value_info_social.preprocess_value_information(context_dict, predefined_setting, selected_desire)
-    print(f"detailed_values_dict: {detailed_values_dict}")
-    print(f"expected_values: {expected_values}")
-    print(f"len of detailed_values_dict: {len(detailed_values_dict)}")
-    print(f"len of expected_values: {len(expected_values)}")
     all_desire_components = init_value_info_social.get_all_desire_components(model, general_pre_act_label, observation, clock, measurements, detailed_values_dict, expected_values, wanted_desires=selected_desire)
 
 
     target_tracking_desire_component = dict()
     for desire_name, desire_component in all_desire_components.items():
         target_tracking_desire_component[_get_class_name(desire_component)] = desire_component
-
-    print(f"expected_values in value agent: {expected_values}")
-    print(f"predefined_setting in value agent: {predefined_setting}")
 
     value_tracker = value_comp.ValueTracker(
         clock_now=clock.now,

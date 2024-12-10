@@ -47,8 +47,6 @@ class MCTSActComponent(entity_component.ActingComponent):
       self._desire_component_dict = desire_component_dict
       self._desire_component_names = tuple(_get_class_name(compo) for compo in self._desire_component_dict.values())
       self._desire_name = tuple(self._desire_component_dict.keys())
-      print(f"desire_component_names: {self._desire_component_names}")
-      print(f"desire_name: {self._desire_name}")
 
     def _get_desire_status(self):
         desire_status = ''
@@ -166,7 +164,6 @@ class MCTSActComponent(entity_component.ActingComponent):
         MCTS_log['tree_thinking_prompt'] = prompt.view().text()
         MCTS_log['tree_thinking_answer'] = tree_thinking_answer
         imagined_actions = self._preprocess_imagined_action(tree_thinking_answer)
-        print(f"imagined_actions: {imagined_actions}")
         MCTS_log['imagined_actions'] = imagined_actions
 
         result_of_imagined_actions = concurrency.run_tasks({

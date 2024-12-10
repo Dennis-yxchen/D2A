@@ -201,10 +201,6 @@ def build_BabyAGI_agent(*,
     general_pre_act_label = f"\n{agent_name}" + "'s current feeling of {desire_name} is"
     ### init the information to be used in the value component
     detailed_values_dict, expected_values = init_value_info_social.preprocess_value_information(context_dict, predefined_setting, selected_desires=selected_desire)
-    print(f"detailed_values_dict: {detailed_values_dict}")
-    print(f"expected_values: {expected_values}")
-    print(f"len of detailed_values_dict: {len(detailed_values_dict)}")
-    print(f"len of expected_values: {len(expected_values)}")
     all_desire_components = init_value_info_social.get_all_desire_components_without_PreAct(model, general_pre_act_label, observation, clock, measurements, detailed_values_dict, expected_values,wanted_desires = selected_desire)
 
 
