@@ -94,6 +94,7 @@ examples/
 3. **run the simulation** by `python PATH/to/indoor_Room.py` or `python PATH/to/outdoor_party.py`
 
 ## To modify desire-related components, navigate to the `value_components` folder and follow these steps across different files:
+_assume that we want to add a new desire called `sense of wonder`_
 ### value_comp.py
 1. create the new desire component subclass in `value_comp.py`
   ```python
