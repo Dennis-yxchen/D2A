@@ -69,8 +69,8 @@ examples/
 
 
 ### Run the simulation
-1. Set up the **environment dependencies** by:
-  ``
+1. Set up the **environment dependencies** by following **Environment** section
+
 2. Set up the **experiment setting** in `experiment_setup_indoor.py` and `experiment_setup_outdoor.py`
    - ROOT (the root path of the project, the folder which has `concordia` and `examples` in it)
    - episode_length
