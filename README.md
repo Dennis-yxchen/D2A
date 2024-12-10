@@ -12,7 +12,20 @@ Existing task-oriented AI agents often depend on explicit instructions or extern
 ![image](imgs/framework.png)
 
 ## Environment
-
+1. Clone D2A:
+```bash
+git clone https://github.com/zfw1226/D2A
+cd D2A
+```
+2. Install the D2A module
+```bash
+conda env create -f environment_D2A.yml
+conda activate D2A
+```
+1. Re-install the Concordia module (in the `D2A` folder that contains `concordia` and `examples`)
+```bash
+pip install --editable .[dev]
+```
 
 
 ## Usage

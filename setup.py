@@ -17,20 +17,6 @@
 
 import setuptools
 
-
-def _remove_excluded(description: str) -> str:
-  description, *sections = description.split('<!-- GITHUB -->')
-  for section in sections:
-    excluded, included = section.split('<!-- /GITHUB -->')
-    del excluded
-    description += included
-  return description
-
-
-with open('README.md') as f:
-  LONG_DESCRIPTION = _remove_excluded(f.read())
-
-
 setuptools.setup(
     name='gdm-concordia',
     version='1.8.7',
@@ -44,7 +30,6 @@ setuptools.setup(
         'A library for building a generative model of social interacions.'
     ),
     description_content_type='text/plain',
-    long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     keywords=(
         'multi-agent agent-based-simulation generative-agents python'
