@@ -26,10 +26,8 @@ IMPORT_AGENT_BASE_DIR = 'examples.D2A.value_components'
 init_value_info_social = importlib.import_module(
     f'{IMPORT_AGENT_BASE_DIR}.init_value_info_social')
 value_comp = importlib.import_module(f'{IMPORT_AGENT_BASE_DIR}.value_comp')
-# from init_value_info_social import preprocess_value_information, get_all_desire_components_without_PreAct
-# import value_comp
+
 from .ReAct_ActComp import ReActComponent
-# from init_value_info import *
 import NullObservation
 
 

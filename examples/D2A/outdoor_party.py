@@ -304,11 +304,6 @@ def build_players_list(blank_memory_factory: blank_memories.MemoryFactory,
             'specific_memories': [f'{name} is an attendee of the party.'],
             'main_character': is_main_character,
         }
-    # else:
-    #     return {
-    #         'specific_memories': [f'{name} is the staff.'],
-    #         'main_character': is_main_character,
-    #     }
     raise ValueError('main_character should be True for the main character.')
 
   player_configs = [
@@ -367,7 +362,6 @@ def build_players_list(blank_memory_factory: blank_memories.MemoryFactory,
       for extra_memory in config.extras.get('specific_memories', []):
         mem.add(f'{extra_memory}', tags=['initial_specific_memory'])
 
-  # citizen_names = [player.name for player in players]
   player_names = [player.name for player in players]
   return players, memories, player_names, main_character, supported_characters, player_configs
 
@@ -403,18 +397,6 @@ def build_game_master(main_character, players, player_names, memories, clock, pl
   )
 
   convo_externality = None
-#   convo_externality = gm_components.conversation.Conversation(
-#     players,
-#     model,
-#     clock=clock,
-#     memory=game_master_memory,
-#     burner_memory_factory=blank_memory_factory,
-#     components=[player_status],
-#     cap_nonplayer_characters=0,
-#     shared_context=shared_context,
-#     max_conversation_length = 2,
-#     verbose=False,
-# )
 
   env = game_master.GameMaster(
       model=model,
@@ -427,7 +409,6 @@ def build_game_master(main_character, players, player_names, memories, clock, pl
           direct_effect_externality,
           relevant_events,
           time_display,
-          # convo_externality,
       ],
       randomise_initiative=True,
       player_observes_event=False,

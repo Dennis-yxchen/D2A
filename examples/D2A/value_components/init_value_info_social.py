@@ -22,15 +22,15 @@ from concordia.utils import measurements as measurements_lib
 from concordia.components.agent import memory_component
 
 profile_dict = {
-  'gluttonous': 'hunger', # 相关
-  'hedonistic': 'joyfulness', # 相关, 期望值高
-  'lazy': 'passion', # 下降更快, 默认6
-  'sociable': 'social connectivity', # 相关, 期望值高
-  'health-conscious': 'health', # 加了
+  'gluttonous': 'hunger',
+  'hedonistic': 'joyfulness',
+  'lazy': 'passion',
+  'sociable': 'social connectivity',
+  'health-conscious': 'health',
   'spiritual': 'spiritual satisfaction',
   'materialistic': 'comfort',
   'obsessional about cleanliness': 'cleanliness',
-  'fatigable': 'sleepiness', # 不相关
+  'fatigable': 'sleepiness',
   'timid': 'safety',
   'fast-metabolizing': 'thirst',
   'reputation-conscious': 'recognition',
@@ -173,12 +173,15 @@ def preprocess_value_information(context_dict, predefined_setting, selected_desi
     ### init the information to be used in the value component
     revert_profile_dict = {value: adj for adj, value in profile_dict.items()}
     expected_values = dict()
+
+    # desires that should be reversed, i.e. the higher the value, the worse the situation
     should_reverse = [
        'hunger',
        'thirst',
        'sleepiness',
     ]
 
+    # desires that should have a fixed expected value instead of using the default calculation
     fix_expected_value = {'sleepiness': 3,
                           'passion': 8}
 

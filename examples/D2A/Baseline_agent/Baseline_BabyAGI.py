@@ -29,9 +29,7 @@ IMPORT_AGENT_BASE_DIR = 'examples.D2A.value_components'
 init_value_info_social = importlib.import_module(
     f'{IMPORT_AGENT_BASE_DIR}.init_value_info_social')
 value_comp = importlib.import_module(f'{IMPORT_AGENT_BASE_DIR}.value_comp')
-# import value_components
-# from value_components.init_value_info_social import preprocess_value_information, get_all_desire_components_without_PreAct
-# from value_components.value_comp import ValueTracker
+
 from .BabyAGI_ActComp import BabyAGIActComponent
 import NullObservation
 
@@ -208,7 +206,7 @@ def build_BabyAGI_agent(*,
     print(f"len of detailed_values_dict: {len(detailed_values_dict)}")
     print(f"len of expected_values: {len(expected_values)}")
     all_desire_components = init_value_info_social.get_all_desire_components_without_PreAct(model, general_pre_act_label, observation, clock, measurements, detailed_values_dict, expected_values,wanted_desires = selected_desire)
-   
+
 
     target_tracking_desire_component = dict()
     for desire_name, desire_component in all_desire_components.items():
@@ -251,11 +249,6 @@ def build_BabyAGI_agent(*,
             agent_components.memory_component.MemoryComponent(raw_memory))
     component_order = list(components_of_agent.keys())
 
-    # No goal component for this agent.
-    # if overarching_goal is not None:
-    #     components_of_agent[goal_label] = overarching_goal
-    #     # Place goal after the instructions.
-    #     component_order.insert(1, goal_label)
     daily_routine = get_likely_to_do_summary(model, profile, environment = background_knowledge)
     act_component = BabyAGIActComponent(
         model=model,

@@ -1,11 +1,11 @@
 import random
 def generate_bedroom():
-    # 必需物品
+    # must-have items
     bedroom = [
         "A bed with a soft mattress, pillows, and a blanket",
         "A bedside table with a lamp"
     ]
-    # 可选物品
+    # optional items
     optional_items = [
         "A wardrobe with neatly arranged clothes",
         "A desk with a chair and a reading lamp",
@@ -16,18 +16,18 @@ def generate_bedroom():
         "A cozy armchair with a small side table",
         "A mirror mounted on the wall"
     ]
-    # 随机选择一些可选物品
+    # randomly select some optional items
     bedroom += random.sample(optional_items, random.randint(2, 4))
     return bedroom
 
 def generate_kitchen():
-    # 必需物品
+    # must-have items
     kitchen = [
         "A stove for cooking",
         "A fridge stocked with food and beverages",
         "A sink with a tap for washing dishes"
     ]
-    # 可选物品
+    # optional items
     optional_items = [
         "A microwave oven on the counter",
         "A coffee machine with a variety of coffee pods",
@@ -40,17 +40,17 @@ def generate_kitchen():
         "A dishwasher under the counter",
         "Herb pots on the windowsill"
     ]
-    # 随机选择一些可选物品
+    # randomly select some optional items
     kitchen += random.sample(optional_items, random.randint(3, 5))
     return kitchen
 
 def generate_living_room():
-    # 必需物品
+    # must-have items
     living_room = [
         "A sofa with cushions",
         "A coffee table in front of the sofa"
     ]
-    # 可选物品
+    # optional items
     optional_items = [
         "A TV on a media console",
         "A bookshelf with decorative items",
@@ -63,18 +63,18 @@ def generate_living_room():
         "A wireless speaker for music",
         "A snack bowl filled with chocolates and nuts"
     ]
-    # 随机选择一些可选物品
+    # randomly select some optional items
     living_room += random.sample(optional_items, random.randint(3, 5))
     return living_room
 
 def generate_bathroom():
-    # 必需物品
+    # must-have items
     bathroom = [
         "A sink with a mirror above it",
         "A shower with a non-slip mat",
         "A toilet"
     ]
-    # 可选物品
+    # optional items
     optional_items = [
         "A towel rack with fluffy towels",
         "A cabinet with toiletries",
@@ -87,7 +87,7 @@ def generate_bathroom():
         "A bathrobe hanging on the door",
         "A smart bathroom mirror with LED lighting"
     ]
-    # 随机选择一些可选物品
+    # randomly select some optional items
     bathroom += random.sample(optional_items, random.randint(2, 4))
     return bathroom
 

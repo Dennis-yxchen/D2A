@@ -339,18 +339,6 @@ def build_game_master(main_character, players, player_names, memories, clock, pl
       verbose=False,
       components=[player_status],
   )
-#   convo_externality = gm_components.conversation.Conversation(
-#     players,
-#     model,
-#     clock=clock,
-#     memory=game_master_memory,
-#     burner_memory_factory=blank_memory_factory,
-#     components=[player_status],
-#     cap_nonplayer_characters=1,
-#     shared_context=shared_context,
-#     max_conversation_length = 3,
-#     verbose=False,
-# )
   convo_externality = None
 
   env = game_master.GameMaster(
@@ -364,7 +352,6 @@ def build_game_master(main_character, players, player_names, memories, clock, pl
           direct_effect_externality,
           relevant_events,
           time_display,
-          # convo_externality,
       ],
       randomise_initiative=True,
       player_observes_event=False,

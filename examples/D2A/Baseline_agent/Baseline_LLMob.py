@@ -30,8 +30,6 @@ init_value_info_social = importlib.import_module(
 value_comp = importlib.import_module(f'{IMPORT_AGENT_BASE_DIR}.value_comp')
 from concordia.components.agent import memory_component
 
-# from init_value_info import preprocess_value_information, get_all_desire_components
-# from init_value_info_social import preprocess_value_information, get_all_desire_components_without_PreAct
 from .LLMob_ActComp import LLMobActComponent
 import NullObservation
 
@@ -346,7 +344,7 @@ def build_LLMob_agent(
         pre_act_key=DEFAULT_PRE_ACT_KEY,
         logging_channel=measurements.get_channel('LLMobPlan').on_next,
     )
-    
+
     ## Value Components
     general_pre_act_label = f"\n{agent_name}" + "'s current feeling of {desire_name} is"
     ### init the information to be used in the value component
@@ -356,7 +354,6 @@ def build_LLMob_agent(
     print(f"len of detailed_values_dict: {len(detailed_values_dict)}")
     print(f"len of expected_values: {len(expected_values)}")
     all_desire_components = init_value_info_social.get_all_desire_components_without_PreAct(model, general_pre_act_label, observation, clock, measurements, detailed_values_dict, expected_values, wanted_desires = selected_desire)
-    # all_desire_components = get_all_desire_components(model, general_pre_act_label, observation_without_pre_act, clock, measurements, detailed_values_dict, expected_values)
 
 
     target_tracking_desire_component = dict()

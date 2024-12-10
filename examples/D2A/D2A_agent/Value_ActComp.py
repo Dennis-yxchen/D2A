@@ -129,28 +129,6 @@ class MCTSActComponent(entity_component.ActingComponent):
 
         MCTS_log = dict()
         MCTS_log['component context'] = context
-        # tree_thinking_prompt = (f"You are the human-like desired-driven agent {agent_name},"
-        #                          "you already observe your current states over"
-        #                         "(hunger, thirst, sleepiness, cleaness,"
-        #                         "safeness, joyness, passion, confort, health,"
-        #                         "spiritual satisfaction, social connectivity)"
-        #                         "11 desire or value dimensions."
-        #                         "Given these states descriptions,"
-        #                         f"please generate {self._num_proposed_actions} activities"
-        #                         "(may contain several feasible actions for each)"
-        #                         "that might have most positive impact on your own physical desires or value states."
-        #                         "You need to focus on your immediate desires and take activities that can satisfy them,"
-        #                         "but at the same time, you need to make sure that your actions are reasonable and varied."
-        #                         "Notice that you can only interact with the items that provided by the environment."
-        #                         "You need to describe your activities in a more specific mode and make sure"
-        #                         "that the time required for the action sequence you output"
-        #                         "matches the required time period."
-        #                         f"Please output the {self._num_proposed_actions} activities in the following format:\n"
-        #                         "'Activity 1: <first possible action sequence> \n"
-        #                         "Activity 2: <second possible action sequence> \n"
-        #                         "Activity 3: <third possible action sequence> \n ......'"
-        #                         "and make sure that the time required for the action sequence you output"
-        #                         "matches the required time period.")
 
         tree_thinking_prompt = (f"{agent_name} is the human-like desire-driven agent, "
                         f"{agent_name} will observe current states over "
@@ -200,17 +178,7 @@ class MCTSActComponent(entity_component.ActingComponent):
         result_of_imagined_actions = {key: value['status'] for key, value in result_of_imagined_actions.items()}
 
         prompt = interactive_document.InteractiveDocument(self._model)
-        # action_selection_prompt = (f"You are a human-like agent, "
-        #                            "you will first receive a series of observations "
-        #                            "describe your current states of your desire in many dimensions, "
-        #                            "then you will recieve several feasible actions along with the states of desire "
-        #                            "after you take the action. "
-        #                            "You need to compare these actions and their corresponding states of desire, "
-        #                            "and choose the action that has the most positive impact on your own physical desires "
-        #                            "or value states. You need to focus on your immediate desires "
-        #                            "and take actions that can satisfy them. "
-        #                            "Please output the best action in the following format: "
-        #                            "\'Action: <best action> \n")
+
         desire_status = self._get_desire_status()
         observation_status = self.get_entity().get_component("Observation", type_=agent_components.action_spec_ignored.ActionSpecIgnored).get_pre_act_value()
         action_selection_prompt = (
