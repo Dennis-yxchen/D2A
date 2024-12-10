@@ -1,19 +1,4 @@
-values_names = [
-    'hunger',
-    'thirst',
-    'comfort',
-    'health',
-    'sleepiness',
-    'joyfulness',
-    'cleanliness',
-    'safety',
-    'passion',
-    'spiritual satisfaction',
-    'social connectivity',
-    'recognition',
-    'sense of control',
-    'sense of superiority',
-]
+
 hardcode_state = {
     'hunger': {
       0: "Fully satiated, feeling energized and satisfied after a wholesome meal.",
@@ -196,5 +181,18 @@ hardcode_state = {
       8: "Very strong sense of superiority, consistently feeling more capable or distinguished than nearly all peers.",
       9: "Extremely strong sense of superiority, feeling highly capable and distinguished over almost everyone.",
       10: "Complete sense of superiority, believing you are significantly more capable and distinguished than all those around you."
-    }
+    },
+    # 'sense of wonder': {
+    #   0: "No curiosity or amazement about the world, lacking any interest in exploration or new experiences.",
+    #   1: "Very low sense of wonder, rarely feeling curious or amazed by anything.",
+    #   2: "Minimal sense of wonder, occasionally feeling a slight curiosity about the world.",
+    #   3: "Somewhat low sense of wonder, infrequently feeling a mild interest in new experiences.",
+    #   4: "Slight sense of wonder, occasionally feeling curious or amazed by certain things.",
+    #   5: "Moderate sense of wonder, sometimes feeling curious and interested in exploring new things.",
+    #   6: "Noticeable sense of wonder, often feeling curious and amazed by many aspects of the world.",
+    #   7: "Strong sense of wonder, frequently feeling a deep fascination and desire to explore and understand the world.",
+    #   8: "Very strong sense of wonder, consistently feeling captivated and eager to discover new things.",
+    #   9: "Extremely strong sense of wonder, feeling intensely curious and amazed by almost everything around you.",
+    #   10: "Complete sense of wonder, deeply fascinated and constantly seeking to discover, learn, and marvel at new things."
+    # }
   }

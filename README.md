@@ -77,18 +77,118 @@ examples/
 
 3. **run the simulation** by `python PATH/to/indoor_Room.py` or `python PATH/to/outdoor_party.py`
 
-To modify desire-related components, navigate to the `value_components` folder and follow these steps across different files:
+## To modify desire-related components, navigate to the `value_components` folder and follow these steps across different files:
 ### value_comp.py
 1. create the new desire component subclass in `value_comp.py`
+  ```python
+  # example:
+  class SenseOfWonderWithoutPreAct(desireWithoutPreAct):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+  class SenseOfWonder(desire):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+  ```
 ### init_value_info_social.py
-2. Modify the profile_dict by adding a new entry:
-   ```python
-    {"descriptive_adjective": "desire_name"}
-   ```
-3. Add the desire name to the `values_names` list
-4. Add corresponding descriptions to `values_names_descriptions`
+1. Modify the profile_dict by adding a new entry:
+  ```python
+    # {"descriptive_adjective": "desire_name"}
+    # example:
+    profile_dict = {
+      'gluttonous': 'hunger',
+      # ...
+      "curious": "sense of wonder",
+    }
+  ```
+2. Add the desire name to the `values_names` list
+  ```python
+    values_names = [
+      'hunger',
+      # ...
+      "sense of wonder",
+  ]
+  ```
+3. Add corresponding descriptions to `values_names_descriptions`
+  ```python
+  values_names_descriptions = {
+    'hunger': 'The value....',
+    # ....
+    'sense of wonder': "The value of sense of wonder ranges from 0 to 10. A score of 0 means you feel no curiosity or amazement about the world, lacking any interest in exploration or new experiences, while a score of 10 means you are deeply fascinated and captivated by the world around you, constantly seeking to discover, learn, and marvel at new things."
+  }
+  ```
+4. Add corresponding subclass to `get_all_desire_components` and `get_all_desire_components_without_PreAct`.
+  ```python
+  def get_all_desire_components_without_PreAct():
+    for desire in wanted_desires:
+      if desire == 'hunger':
+        init = value_comp.HungerWithoutPreAct
+      # ......
+      elif desire == 'sense of wonder':
+        init = value_comp.SenseOfWonderWithoutPreAct
+      # ......
+
+  def get_all_desire_components():
+    for desire in wanted_desires:
+      if desire == 'hunger':
+        init = value_comp.Hunger
+      # ......
+      elif desire == 'sense of wonder':
+        init = value_comp.SenseOfWonder
+      # ......
+  ```
 ### hardcoded_value_state.py
 1. Add numerical value mappings to `hardcore_state`. You can use GPT to design appropriate mapping scales.
+  ```python
+  hardcode_state = {
+    'hunger': {'...': '.....'},
+    # ......
+    'sense of wonder': {
+      0: "No curiosity or amazement about the world, lacking any interest in exploration or new experiences.",
+      1: "Very low sense of wonder, rarely feeling curious or amazed by anything.",
+      2: "Minimal sense of wonder, occasionally feeling a slight curiosity about the world.",
+      3: "Somewhat low sense of wonder, infrequently feeling a mild interest in new experiences.",
+      4: "Slight sense of wonder, occasionally feeling curious or amazed by certain things.",
+      5: "Moderate sense of wonder, sometimes feeling curious and interested in exploring new things.",
+      6: "Noticeable sense of wonder, often feeling curious and amazed by many aspects of the world.",
+      7: "Strong sense of wonder, frequently feeling a deep fascination and desire to explore and understand the world.",
+      8: "Very strong sense of wonder, consistently feeling captivated and eager to discover new things.",
+      9: "Extremely strong sense of wonder, feeling intensely curious and amazed by almost everything around you.",
+      10: "Complete sense of wonder, deeply fascinated and constantly seeking to discover, learn, and marvel at new things."
+    }
+  }
+  ```
+  The prompt can be like:
+  ```python
+  prompt = (
+    "describe 'sense of wonder' in the format of the example, sense of wonder is defined as: The value of sense of wonder ranges from 0 to 10. A score of 0 means you feel no curiosity or amazement about the world, lacking any interest in exploration or new experiences, while a score of 10 means you are deeply fascinated and captivated by the world around you, constantly seeking to discover, learn, and marvel at new things.\n"
+    "Example: \n"
+    """
+    'social connectivity': {
+        0: "Completely isolated, lacking any meaningful social connections.",
+        1: "Very lonely, minimal social connectivity and rare interactions.",
+        2: "Disconnected, limited social interactions and frequent feelings of isolation.",
+        3: "Somewhat isolated, occasional social engagements but still feeling disconnected.",
+        4: "Slightly connected, some social interactions but not very strong or supportive.",
+        5: "Moderately connected, a few meaningful relationships and occasional social interactions.",
+        6: "Regularly engaged, growing network of social connections.",
+        7: "Socially connected, several meaningful and supportive relationships.",
+        8: "Highly connected, strong network of friends and supportive relationships.",
+        9: "Profoundly connected, deep and meaningful social relationships.",
+        10: "Highly socially connected, strong and supportive network of relationships."
+      }
+      """
+    )
+  ```
+
+### experiment_setup_outdoor.py or experiment_setup_indoor.py
+1. Add desire name to `wanted_desires` and `hidden_desires(optional)`
+  ```python
+  wanted_desires = [
+  'hunger',
+  # ......
+  'sense of wonder'
+  ]
+  ```
 
 ### Optional: Enable LLM Value Conversion
 To use LLM for action value conversion, goto `value_comp.py`

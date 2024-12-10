@@ -380,10 +380,6 @@ class SenseOfControl(desire):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
 
-class SenseOfBelonging(desire):
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
-
 class Recognition(desire):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -391,6 +387,10 @@ class Recognition(desire):
 class SenseOfSuperiority(desire):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
+
+# class SenseOfWonder(desire):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(**kwargs)
 
 ## end here
 
@@ -487,10 +487,6 @@ class SenseOfControlWithoutPreAct(desireWithoutPreAct):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
 
-class SenseOfBelongingWithoutPreAct(desireWithoutPreAct):
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
-
 class RecognitionWithoutPreAct(desireWithoutPreAct):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -498,6 +494,10 @@ class RecognitionWithoutPreAct(desireWithoutPreAct):
 class SenseOfSuperiorityWithoutPreAct(desireWithoutPreAct):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
+
+# class SenseOfWonderWithoutPreAct(desireWithoutPreAct):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(**kwargs)
 
 
 ## end here
