@@ -210,3 +210,6 @@ _assume that we want to add a new desire called `sense of wonder`_
 #### Optional: Enable LLM Value Conversion
 To use LLM for action value conversion, reach `value_comp.py`
 - replace `_convert_numeric_desire_to_qualitative_by_hard_coding(self)` function in the `_make_pre_act_value(self)` with `_convert_numeric_desire_to_qualitative(self)`.
+
+## Citation D2A
+If you use D2A in your work, please cite the article:
