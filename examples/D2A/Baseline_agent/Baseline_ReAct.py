@@ -147,7 +147,7 @@ def build_ReAct_agent(
 
     observation_without_pre_act = ObservationWithoutPreAct(
         clock_now=clock.now,
-        timeframe=datetime.timedelta(hours=1),
+        timeframe=clock.get_step_size(),
         memory_component_name=agent_components.memory_component.DEFAULT_MEMORY_COMPONENT_NAME,
         logging_channel=measurements.get_channel('Observation').on_next,
     )
