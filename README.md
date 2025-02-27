@@ -1,5 +1,5 @@
 # D2A
-**【ICLR 2025】Simulating Human-like Daily Activities with Desire-driven Autonomy**
+**\[ICLR 2025\] Simulating Human-like Daily Activities with Desire-driven Autonomy**
 
 paper link: [http://arxiv.org/abs/2412.06435](http://arxiv.org/abs/2412.06435)
 
