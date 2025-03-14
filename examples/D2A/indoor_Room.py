@@ -84,11 +84,13 @@ START_TIME = datetime.datetime(hour=8, year=2024, month=10, day=2)
 indoor_setting = generate_house()
 prompt = generate_prompt(indoor_setting)
 environment = model.sample_text(prompt=prompt, terminators=())
-shared_memories = environment
+shared_memories = [
+  environment
+  ]
 
 shared_context = model.sample_text(
     'Summarize the following passage in a concise and insightful fashion:\n'
-    + '\n'.join([shared_memories])
+    + '\n'.join(shared_memories)
     + '\n'
     + 'Summary:'
 )
@@ -184,7 +186,7 @@ def _get_current_agent(agent_name, config, mem, clock):
                                   predefined_setting=numerical_desire,
                                   selected_desire=wanted_desires,
                                   model = model,
-                                  background_knowledge='\n'.join([shared_memories]),
+                                  background_knowledge='\n'.join(shared_memories),
                                   profile=visual_desire_string,
                                   memory=mem,
                                   clock = clock,
@@ -196,7 +198,7 @@ def _get_current_agent(agent_name, config, mem, clock):
                                   predefined_setting=numerical_desire,
                                   selected_desire=wanted_desires,
                                   model = model,
-                                  background_knowledge='\n'.join([shared_memories]),
+                                  background_knowledge='\n'.join(shared_memories),
                                   memory=mem,
                                   clock = clock,
                                   update_time_interval=None)
@@ -206,7 +208,7 @@ def _get_current_agent(agent_name, config, mem, clock):
                                   context_dict=all_desire_traits_dict,
                                   selected_desire=wanted_desires,
                                   predefined_setting=numerical_desire,
-                                  background_knowledge='\n'.join([shared_memories]),
+                                  background_knowledge='\n'.join(shared_memories),
                                   model = model,
                                   profile = visual_desire_string,
                                   memory=mem,
@@ -217,7 +219,7 @@ def _get_current_agent(agent_name, config, mem, clock):
                                   context_dict=all_desire_traits_dict,
                                   selected_desire=wanted_desires,
                                   predefined_setting=numerical_desire,
-                                  background_knowledge='\n'.join([shared_memories]),
+                                  background_knowledge='\n'.join(shared_memories),
                                   model = model,
                                   memory=mem,
                                   profile=visual_desire_string,
